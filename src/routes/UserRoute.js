@@ -20,6 +20,7 @@ route.get("/users",usercontroller.getAllUser);
 
 route.post("/user",usercontroller.addUsers)
 route.post("/login",usercontroller.loginUser)
+route.post('/googlelogin',usercontroller.GoogleLogin)
 route.post('/changepassword',usercontroller.changePassword)
 route.post('/setprofile',upload.single("profilePhoto"),usercontroller.setProfile)
 route.get("/user/:id",usercontroller.getUserById)

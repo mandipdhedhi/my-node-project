@@ -340,6 +340,29 @@ const resetpassword = async (req, res) => {
 };
 
 
-module.exports = {addUsers,getUserById,getAllUser,loginUser,changePassword,setProfile,setTestimonials,forgotpassword,resetpassword,forgotpasswordSendOtp,verifyOtp}
+const GoogleLogin=async(req,res)=>{
+  const {email}=req.body;
+
+    try{
+        let user=await usermodel.findOne({email:email});
+        if(!user){
+          res.status(404).json({
+            message:"user not found please register",
+          })
+        }
+        if(user){
+            res.status(200).json({    
+                message:"login success",      
+                data:user
+            })
+        }
+    }catch(err){
+        console.error(err);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
+
+module.exports = {addUsers,getUserById,getAllUser,loginUser,changePassword,setProfile,setTestimonials,forgotpassword,resetpassword,forgotpasswordSendOtp,verifyOtp,GoogleLogin};
 
 
