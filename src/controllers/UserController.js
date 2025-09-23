@@ -2,6 +2,7 @@ const { DesignServices } = require("@mui/icons-material");
 const usermodel = require("../models/UserModel");
 const mailUtil=require("../utils/MailUtil")
 const mongoose = require("mongoose");
+
 const getAllUser = async (req, res) => {
     const getalluser = await usermodel.find();
 
@@ -346,9 +347,16 @@ const GoogleLogin=async(req,res)=>{
     try{
         let user=await usermodel.findOne({email:email});
         if(!user){
-          res.status(404).json({
-            message:"user not found please register",
-          })
+          const saveuser = await usermodel.create({
+            email:email,
+            password:"123456"
+        })
+
+        res.status(201).json({
+            message: "user created successfully....",
+            data: saveuser
+        })
+        
         }
         if(user){
             res.status(200).json({    

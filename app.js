@@ -22,6 +22,9 @@ app.use("/api/translations", translationRoutes);
  
 const galleryRoutes = require("./src/routes/productRoute");
 app.use(galleryRoutes);
+
+const adminRoutes = require("./src/routes/adminRoute");
+app.use(adminRoutes);
 mongoose.connect("mongodb://localhost:27017/node").then(
     ()=>{console.log("Database Connected successfuly..")}
 )
