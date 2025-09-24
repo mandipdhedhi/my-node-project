@@ -91,7 +91,7 @@ const upadateLogo=async(req,res)=>{
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
-
+    
     if(req.file){
         admin.logo=req.file.path
     }
