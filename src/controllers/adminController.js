@@ -99,7 +99,7 @@ const upadateLogo=async(req,res)=>{
     }catch(err){
            console.error(err);
     res.status(500).json({
-        message: "Error updating profile",
+        message: "Error updating logo",
         message: "logo updated successfully",
       error: err.message
     })
