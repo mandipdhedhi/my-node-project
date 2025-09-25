@@ -16,7 +16,8 @@ const users = new Map();
 //     res.json({
 //         name:"mandip"
 //     })
-// })
+// })   
+
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 
@@ -31,6 +32,9 @@ app.use(galleryRoutes);
 
 const adminRoutes = require("./src/routes/adminRoute");
 app.use(adminRoutes);
+
+const chatRoutes=require('./src/routes/chatRoute')
+app.use("/chat",chatRoutes)
 
 mongoose.connect("mongodb://localhost:27017/node").then(
     ()=>{console.log("Database Connected successfuly..")}
@@ -47,9 +51,18 @@ const io = new Server(server, {
   },
 });
 
-// ✅ Socket.io connection handler
+// Socket.io connection handler
 io.on("connection", (socket) => {
   console.log("🔗 A user connected:", socket.id);
+
+  socket.on("typing", (data) => {
+   
+  const receiverSocket = users.get(data.receiverId);
+  if (receiverSocket) {
+    io.to(receiverSocket).emit("typing", { senderId: data.senderId, isTyping: data.isTyping });
+  }
+});
+
 
    // When user joins, save their socket
   socket.on("register", (userId) => {
