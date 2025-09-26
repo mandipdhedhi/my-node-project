@@ -13,6 +13,9 @@ const adminSchema = new Schema(
     },
     logo:{
       type: String
+    },
+    color:{
+      type:String
     }
     
   },

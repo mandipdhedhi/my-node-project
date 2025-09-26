@@ -106,4 +106,54 @@ const upadateLogo=async(req,res)=>{
     }
 }
 
-module.exports={getAllAdmins,addAdmins,createAdmin,updateAdmin,upadateLogo}
+
+const setColor=async(req,res)=>{
+   const {color}=req.body
+    try{
+       const admin=await adminModel.findById("68d142c531e21c97b30934e4")
+
+       if(!admin){
+        return res.status(404).json({
+            message:"admin not found"
+
+        })
+       }
+       admin.color=color
+       await admin.save()
+
+       res.status(200).json({
+        message:"color update successfully",
+        data:admin
+       })
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            message:"Net Work Error",
+            err:err.message
+        })
+    }
+}
+
+const getColor=async(req,res)=>{
+    try{
+       const admin =await adminModel.findById("68d142c531e21c97b30934e4")
+       if(!admin){
+        return res.status(404).json({
+            message:"admin not found"
+        })
+       }
+
+       res.status(200).json({
+        message:"Site color get successfully",
+        data:admin
+       })
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            message:"Net Work Error",
+            err:err.message
+        })
+    }
+}
+
+module.exports={getAllAdmins,addAdmins,createAdmin,updateAdmin,upadateLogo,setColor,getColor}

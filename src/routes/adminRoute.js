@@ -22,4 +22,7 @@ route.post("/createadmin",adminController.createAdmin)
 route.post('/logo',upload.single('logo'),adminController.upadateLogo)
 // route.put("/admin/:id",adminController.updateAdmin); // update admin not required as of now
 
+route.post('/color',adminController.setColor)
+route.get('/color',adminController.getColor)
+
 module.exports=route;
